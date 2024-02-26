@@ -1,0 +1,4 @@
+.DS_Store
+.netrwhist
+Brewfile.lock.json
+.config/nvim/plugin
