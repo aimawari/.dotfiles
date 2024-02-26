@@ -4,7 +4,9 @@
 echo "› Installing brew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo "› Installing brew bundle"
+cd brew
 brew bundle
+cd ..
 
 # From: https://github.com/ThePrimeagen/.dotfiles/blob/master/install
 export STOW_FOLDERS="alacritty,bin,brew,nvim,tmux,zsh"
