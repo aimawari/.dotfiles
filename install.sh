@@ -8,10 +8,6 @@ cd brew
 brew bundle
 cd ..
 
-# Initail stow path
-stow zsh
-
-# Include all stow
 ./stow_all.sh
 
 # ============================= Additional Config =============================
