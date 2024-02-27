@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 # Install brew
 echo "› Installing brew"
@@ -8,14 +8,11 @@ cd brew
 brew bundle
 cd ..
 
-# From: https://github.com/ThePrimeagen/.dotfiles/blob/master/install
-export STOW_FOLDERS="alacritty,bin,brew,nvim,tmux,zsh"
-for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
-do
-    echo "› stow $folder"
-    stow -D $folder
-    stow $folder
-done
+# Initail stow path
+stow zsh
+
+# Include all stow
+./stow_all.sh
 
 # ============================= Additional Config =============================
 # Install Rust
