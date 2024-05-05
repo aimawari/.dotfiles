@@ -37,7 +37,8 @@ opt.colorcolumn = "80"
 g.netrw_browse_split = 0
 g.netrw_banner = 0
 g.netrw_winsize = 25
-
+g.netrw_hide = 1
+g.netrw_list_hide = ',\\.DS_Store$,.idea,.vscode,.git,node_modules'
 
 local aimawari_group = augroup('aimawari', {})
 local yank_group = augroup('HighlightYank', {})
