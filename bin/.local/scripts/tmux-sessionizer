@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~ ~/Developer/Work ~/Developer/Playground ~/Developer/Playground/rust_projects -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~ ~/Developer/Work ~/Developer/Playground ~/Developer/Playground/c_playground ~/Developer/Playground/cpp_playground ~/Developer/Playground/rust_projects -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then

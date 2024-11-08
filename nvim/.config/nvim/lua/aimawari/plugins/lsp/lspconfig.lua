@@ -1,17 +1,18 @@
 return {
     "neovim/nvim-lspconfig",
+    cmd = { "LspInfo", "LspInstall", "LspStart" },
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         { "antosha417/nvim-lsp-file-operations", config = true },
+        {
+            "VonHeikemen/lsp-zero.nvim",
+            branch = "v4.x",
+            lazy = true,
+            config = false,
+        },
     },
     config = function()
-        -- import lspconfig plugin
-        local lspconfig = require("lspconfig")
-
-        -- import cmp-nvim-lsp plugin
-        local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
         local keymap = vim.keymap -- for conciseness
 
         local opts = { noremap = true, silent = true }
@@ -19,20 +20,23 @@ return {
             opts.buffer = bufnr
 
             -- set keybinds
-            opts.desc = "Show LSP references"
-            keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
-            opts.desc = "Go to declaration"
-            keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+            opts.desc = "Show documentation for what is under cursor"
+            keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
             opts.desc = "Show LSP definitions"
             keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+
+            opts.desc = "Go to declaration"
+            keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
             opts.desc = "Show LSP implementations"
             keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
             opts.desc = "Show LSP type definitions"
-            keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+            keymap.set("n", "go", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+
+            opts.desc = "Show LSP references"
+            keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
             opts.desc = "See available code actions"
             keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
@@ -51,65 +55,28 @@ return {
 
             opts.desc = "Go to next diagnostic"
             keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-
-            opts.desc = "Show documentation for what is under cursor"
-            keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
             opts.desc = "Restart LSP"
             keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
         end
 
-        -- used to enable autocompletion (assign to every lsp server config)
-        local capabilities = cmp_nvim_lsp.default_capabilities()
+        local lsp_zero = require("lsp-zero")
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-        -- Change the Diagnostic symbols in the sign column (gutter)
-        -- (not in youtube nvim video)
-        local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-        for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-        end
+        lsp_zero.extend_lspconfig({
+            sign_text = true,
+            lsp_attach = on_attach,
+            capabilities = capabilities,
+        })
+
+        -- import lspconfig plugin
+        local lspconfig = require("lspconfig")
 
         -- Automatic server setup
-        require("mason-lspconfig").setup_handlers {
+        require("mason-lspconfig").setup_handlers({
             function(server_name) -- default handler (optional)
-                require("lspconfig")[server_name].setup {
+                lspconfig[server_name].setup({
                     capabilities = capabilities,
                     on_attach = on_attach,
-                }
-            end,
-            -- configure svelte server
-            ["svelte"] = function()
-                lspconfig["svelte"].setup({
-                    capabilities = capabilities,
-                    on_attach = function(client, bufnr)
-                        on_attach(client, bufnr)
-
-                        vim.api.nvim_create_autocmd("BufWritePost", {
-                            pattern = { "*.js", "*.ts" },
-                            callback = function(ctx)
-                                if client.name == "svelte" then
-                                    client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
-                                end
-                            end,
-                        })
-                    end,
-                })
-            end,
-            -- configure graphql language server
-            ["graphql"] = function()
-                lspconfig["graphql"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-                })
-            end,
-            -- configure emmet language server
-            ["emmet_ls"] = function()
-                lspconfig["emmet_ls"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
                 })
             end,
             -- configure lua server (with special settings)
@@ -128,13 +95,51 @@ return {
                                 library = {
                                     [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                                     [vim.fn.stdpath("config") .. "/lua"] = true,
-                                    [vim.fn.expand "${3rd}/love2d/library"] = true,
+                                    [vim.fn.expand("${3rd}/love2d/library")] = true,
                                 },
                             },
                         },
                     },
                 })
-            end
-        }
+            end,
+            -- Configure clangd server
+            ["clangd"] = function()
+                local clangd_opts = {
+                    cmd = {
+                        "clangd",
+                        "--background-index",
+                        "--clang-tidy",
+                        "--header-insertion=iwyu",
+                        "--completion-style=detailed",
+                        "--function-arg-placeholders",
+                        "--fallback-style=llvm",
+                    },
+                    capabilities = {
+                        offsetEncoding = { "utf-16" },
+                    },
+                    root_dir = function(fname)
+                        return require("lspconfig.util").root_pattern(
+                                "Makefile",
+                                "configure.ac",
+                                "configure.in",
+                                "config.h.in",
+                                "meson.build",
+                                "meson_options.txt",
+                                "build.ninja"
+                            )(fname) or
+                            require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(fname)
+                            or require("lspconfig.util").find_git_ancestor(fname)
+                    end,
+                    init_options = {
+                        usePlaceholders = true,
+                        completeUnimported = true,
+                        clangdFileStatus = true,
+                    },
+                    on_attach = on_attach,
+                }
+                require("clangd_extensions").setup(vim.tbl_deep_extend("force", clangd_opts, { server = clangd_opts }))
+                lspconfig["clangd"].setup(clangd_opts)
+            end,
+        })
     end,
 }

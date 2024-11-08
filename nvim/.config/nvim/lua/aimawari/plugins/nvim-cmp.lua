@@ -54,6 +54,11 @@ return {
                     ellipsis_char = "...",
                 }),
             },
+            sorting = {
+                comparators = {
+                    require("clangd_extensions.cmp_scores"),
+                }
+            }
         })
     end,
 }

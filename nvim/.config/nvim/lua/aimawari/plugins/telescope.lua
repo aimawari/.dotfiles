@@ -3,13 +3,9 @@ return {
     branch = "0.1.x",
     dependencies = {
         'nvim-lua/plenary.nvim',
-        'folke/todo-comments.nvim',
-        "nvim-lua/plenary.nvim",
     },
     config = function()
         local telescope = require("telescope")
-        local todo = require('todo-comments')
-
 
         telescope.setup({
             defaults = {
@@ -29,8 +25,6 @@ return {
                 }
             }
         })
-        todo.setup()
-
 
         -- set keymaps
         local keymap = vim.keymap -- for conciseness
@@ -40,8 +34,10 @@ return {
         keymap.set('n', '<leader>fg', builtin.live_grep, {})
         keymap.set('n', '<leader>fb', builtin.buffers, {})
         keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        keymap.set("n", "<leader>sn", '<cmd>lua require("telescope").extensions.notify.notify()<cr>')
+        keymap.set("n", "<leader>fl", '<cmd>lua require("telescope").extensions.flutter.commands()<cr>')
 
-        -- for todo-comments
-        keymap.set("n", "<leader>ftd", ":TodoTelescope<CR>")
+        require("telescope").load_extension("flutter")
+        require("telescope").load_extension("notify")
     end,
 }
