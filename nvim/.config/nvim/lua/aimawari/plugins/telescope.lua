@@ -3,6 +3,7 @@ return {
     branch = "0.1.x",
     dependencies = {
         'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope-dap.nvim',
     },
     config = function()
         local telescope = require("telescope")
@@ -37,7 +38,8 @@ return {
         keymap.set("n", "<leader>sn", '<cmd>lua require("telescope").extensions.notify.notify()<cr>')
         keymap.set("n", "<leader>fl", '<cmd>lua require("telescope").extensions.flutter.commands()<cr>')
 
-        require("telescope").load_extension("flutter")
-        require("telescope").load_extension("notify")
+        telescope.load_extension("dap")
+        telescope.load_extension("flutter")
+        telescope.load_extension("notify")
     end,
 }

@@ -1,4 +1,4 @@
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-22.jdk/Contents/Home
+export JAVA_HOME=/usr/libexec/java_home
 export ANDROID_HOME=~/Library/Android/sdk
 
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
