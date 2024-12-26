@@ -7,6 +7,7 @@ return {
         "saadparwaiz1/cmp_luasnip",     -- for autocompletion
         "rafamadriz/friendly-snippets", -- useful snippets
         "onsails/lspkind.nvim",         -- vs-code like pictograms
+        "vurentjie/cmp-gl"              -- openGL cmp
     },
     config = function()
         local cmp = require("cmp")
@@ -42,6 +43,7 @@ return {
             },
             -- sources for autocompletion
             sources = cmp.config.sources({
+                { name = 'cmp_gl' },  -- openGL cmp
                 { name = "nvim_lsp" },
                 { name = "luasnip" }, -- snippets
                 { name = "buffer" },  -- text within current buffer
