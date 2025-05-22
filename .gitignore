@@ -2,3 +2,5 @@
 .netrwhist
 Brewfile.lock.json
 .config/nvim/plugin
+bin/.local/share
+bin/.local/state

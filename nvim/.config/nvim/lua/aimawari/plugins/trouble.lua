@@ -21,8 +21,8 @@ return {
     cmd = "Trouble",
     keys = {
         {
-            "<leader>dd",
-            "<cmd>Trouble preview_float toggle<cr>",
+            "<leader>xx",
+            "<cmd>Trouble diagnostics toggle<cr>",
             desc = "Diagnostics (Trouble)",
         },
         {
@@ -52,4 +52,3 @@ return {
         },
     },
 }
-

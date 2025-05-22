@@ -1,9 +1,8 @@
 return {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     lazy = false,
     dependencies = {
-        "williamboman/mason-lspconfig.nvim",
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        "mason-org/mason-lspconfig.nvim",
     },
     config = function()
         -- import mason
@@ -11,8 +10,6 @@ return {
 
         -- import mason-lspconfig
         local mason_lspconfig = require("mason-lspconfig")
-
-        local mason_tool_installer = require("mason-tool-installer")
 
         -- enable mason and configure icons
         mason.setup({
@@ -31,14 +28,7 @@ return {
                 "lua_ls",
                 "rust_analyzer"
             },
-            -- auto-install configured servers (with lspconfig)
-            automatic_installation = true, -- not the same as ensure_installed
-        })
-
-        mason_tool_installer.setup({
-            ensure_installed = {
-                "stylua",   -- lua formatter
-            },
+            automatic_enable = true
         })
     end,
 }

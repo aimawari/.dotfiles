@@ -11,7 +11,7 @@ return {
     ft = { "yaml" },
     event = "BufEnter pubspec.yaml",
     config = function()
-        require("pubspec-assist").setup()
+        require('pubspec-assist').setup()
         vim.api.nvim_set_keymap(
             "n",
             "<Leader>p",
