@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-
-
 # Install cocoapods
 sudo gem install cocoapods
 
@@ -12,11 +10,6 @@ echo "› Installing brew bundle"
 cd brew
 brew bundle
 cd ..
-
-echo "› Installing Oh My Zsh"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 
 ./stow_all.sh
 
