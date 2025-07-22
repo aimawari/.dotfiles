@@ -18,8 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Set up lazy.nvim with plugins
 require("lazy").setup({
     { "LazyVim/LazyVim" },
-    { import = "aimawari.plugins" },
-    { import = "aimawari.plugins.lsp" },
+    { import = "config.plugins" },
 }, {
     install = {
         colorscheme = { "nightfly" }, -- Set the colorscheme

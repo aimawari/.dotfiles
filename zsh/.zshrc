@@ -33,3 +33,9 @@ alias vi="nvim"
 alias vim="nvim"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export DEVKITPRO=/opt/devkitpro
+export DEVKITARM=$DEVKITPRO/devkitARM
+export LIBGBA=$DEVKITPRO/libgba
+export PATH=$PATH:$DEVKITPRO/tools/bin:$DEVKITARM/bin
+
