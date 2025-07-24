@@ -46,15 +46,6 @@ vim.opt.breakindent      = true               -- Wrapped lines maintain indent
 vim.opt.wrap             = false              -- No wrapping by default
 
 --------------------------------------------------------------------------------
--- Window Splits
---------------------------------------------------------------------------------
-vim.opt.splitright       = true               -- Vertical splits to the right
-vim.opt.splitbelow       = true               -- Horizontal splits below
-vim.opt.winminwidth      = 5
-vim.opt.winminheight     = 1
-vim.opt.winwidth         = 30
-
---------------------------------------------------------------------------------
 -- Undo/Backup/Swap
 --------------------------------------------------------------------------------
 vim.opt.backup           = false
@@ -69,13 +60,6 @@ vim.opt.undofile         = true               -- Persistent undo history
 vim.opt.timeoutlen       = 500                -- Shorter wait time for mappings
 vim.opt.updatetime       = 50                 -- CursorHold delay
 vim.opt.lazyredraw       = true               -- Faster macro execution
-
---------------------------------------------------------------------------------
--- UI / Floating Window Behavior
---------------------------------------------------------------------------------
-vim.opt.pumblend         = 10                 -- Popup blend (transparency)
-vim.opt.winblend         = 10                 -- Floating window transparency
-vim.opt.winborder        = 'rounded'          -- Rounded borders on floating windows
 
 --------------------------------------------------------------------------------
 -- File Handling

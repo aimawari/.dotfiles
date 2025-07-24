@@ -4,6 +4,7 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-telescope/telescope-dap.nvim',
+        'nvim-telescope/telescope-ui-select.nvim'
     },
     config = function()
         local telescope = require("telescope")
@@ -24,7 +25,7 @@ return {
                         return { "--hidden" }
                     end
                 }
-            }
+            },
         })
 
         -- set keymaps
@@ -41,5 +42,6 @@ return {
         telescope.load_extension("dap")
         telescope.load_extension("flutter")
         telescope.load_extension("notify")
+        telescope.load_extension("ui-select")
     end,
 }
