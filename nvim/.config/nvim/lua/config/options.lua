@@ -10,7 +10,6 @@ vim.opt.colorcolumn      = "80"               -- Column marker at 80 characters
 vim.opt.scrolloff        = 8                  -- Minimum lines above/below cursor
 vim.opt.sidescrolloff    = 8                  -- Minimum columns left/right of cursor
 vim.opt.mouse            = "a"                -- Enable mouse
-vim.opt.clipboard        = "unnamedplus"      -- Use system clipboard
 
 --------------------------------------------------------------------------------
 -- Invisible Characters
