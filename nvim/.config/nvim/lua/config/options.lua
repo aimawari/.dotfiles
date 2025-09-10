@@ -11,6 +11,13 @@ vim.opt.scrolloff        = 8                  -- Minimum lines above/below curso
 vim.opt.sidescrolloff    = 8                  -- Minimum columns left/right of cursor
 vim.opt.mouse            = "a"                -- Enable mouse
 
+vim.cmd [[
+  highlight Normal guibg=none
+  highlight NonText guibg=none
+  highlight Normal ctermbg=none
+  highlight NonText ctermbg=none
+]]
+
 --------------------------------------------------------------------------------
 -- Invisible Characters
 --------------------------------------------------------------------------------
