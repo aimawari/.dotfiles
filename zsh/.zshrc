@@ -15,7 +15,6 @@ alias java21='export JAVA_HOME=$JAVA_21_HOME'
 java17
 
 export ANDROID_HOME=~/Library/Android/sdk
-export PATH=$PATH:$HOME/Developer/flutter/bin
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$PATH:$HOME/.pub-cache/bin

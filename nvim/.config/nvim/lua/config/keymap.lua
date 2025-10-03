@@ -29,7 +29,6 @@ keymap.set({ "n", "v" }, "<leader>d", [["_d]]) -- Delete without yanking
 --------------------------------------------------------------------------------
 -- LSP formatting
 keymap.set("n", "<leader>f", vim.lsp.buf.format)
-keymap.set("i", "<C-b>", "<C-x><C-o>")
 
 --------------------------------------------------------------------------------
 -- Quickfix and location list navigation

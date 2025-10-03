@@ -37,7 +37,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             -- Enable LSP completion (requires Neovim 0.11+)
             vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
 
-            -- Map Ctrl-Space to trigger completion manually
+            -- Map Ctrl-j to trigger completion manually
             vim.keymap.set('i', '<C-j>', vim.lsp.completion.get, { buffer = bufnr, desc = 'Trigger LSP Completion' })
         end
     end,
@@ -50,4 +50,3 @@ vim.diagnostic.config({
         current_line = true,
     },
 })
-
