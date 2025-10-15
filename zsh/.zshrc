@@ -1,4 +1,7 @@
 export PS1="[%n@%m %1~]# "; clear;
+unalias brew 2>/dev/null
+brewser=$(stat -f "%Su" $(which brew))
+alias brew='sudo -Hu '$brewser' brew'
 
 # Config
 export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
@@ -17,9 +20,13 @@ java17
 export ANDROID_HOME=~/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$JAVA_HOME/bin
-export PATH=$PATH:$HOME/.pub-cache/bin
+export PATH=$PATH:$HOME/Developer/flutter/bin
 export PATH=$PATH:$HOME/.local/scripts
+export PATH=$PATH:$HOME/.pub-cache/bin
 export PATH=$PATH:/usr/local/opt/llvm/bin
+
+export PATH=$PATH:$HOME/.rbenv/bin
+eval "$(rbenv init - zsh)"
 
 # Android studio
 export PATH=$PATH:"/Applications/Android Studio.app/Contents/MacOS"

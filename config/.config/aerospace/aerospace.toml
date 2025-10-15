@@ -1,0 +1,121 @@
+after-startup-command = [
+    'exec-and-forget /usr/local/bin/borders',
+]
+
+start-at-login = true
+
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = ['move-mouse window-lazy-center']
+
+accordion-padding = 30
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+key-mapping.preset = 'qwerty'
+
+[gaps]
+    inner.horizontal = 8
+    inner.vertical = 8
+    outer.left = 12
+    outer.bottom = 12
+    outer.top = 12
+    outer.right = 12
+
+[mode.main.binding]
+    # --- Focus Movement (ALT + hjkl)
+    alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
+    alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
+    alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
+    alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
+
+    # --- Move Window (ALT + SHIFT + hjkl)
+    alt-shift-h = 'move left'
+    alt-shift-j = 'move down'
+    alt-shift-k = 'move up'
+    alt-shift-l = 'move right'
+
+    # --- Splits
+    alt-b = 'split horizontal' # split left/right
+    alt-v = 'split vertical'   # split top/bottom
+
+    # --- Layouts
+    alt-s = 'layout v_accordion'     # vertical stack
+    alt-w = 'layout h_accordion'     # horizontal stack (tabbed)
+    alt-e = 'layout tiles horizontal vertical'  # toggle between tiling styles
+    alt-shift-space = 'layout floating tiling'  # toggle floating
+
+    # --- Fullscreen
+    alt-f = 'fullscreen'
+
+    # --- Workspaces
+    alt-1 = 'workspace 1'  # 🧭 Browser / Research
+    alt-2 = 'workspace 2'  # 💻 Terminal
+    alt-3 = 'workspace 3'  # 📝 Writing / Docs
+    alt-4 = 'workspace 4'  # 🗂 File Manager / System
+    alt-5 = 'workspace 5'  # 🛠 Dev / IDE
+    alt-6 = 'workspace 6'  # 🎮 Games / Other
+
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-6 = 'move-node-to-workspace 6'
+
+    # --- Workspace navigation
+    alt-tab = 'workspace-back-and-forth'
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+    # --- Disable conflicting macOS shortcuts
+    cmd-h = []          # Disable "hide application"
+    cmd-alt-h = []      # Disable "hide others"
+
+    # --- Config reload
+    alt-shift-c = 'reload-config'
+
+    # --- Enter resize mode
+    alt-r = 'mode resize'
+
+
+[mode.resize.binding]
+    # Ergonomic resize directions using Vim-style keys
+    h = 'resize width -50'   # shrink width
+    j = 'resize height +50'  # grow height
+    k = 'resize height -50'  # shrink height
+    l = 'resize width +50'   # grow width
+    enter = 'mode main'
+    esc = 'mode main'
+
+
+# --- Window rules: Move apps to specific workspaces
+[[on-window-detected]]
+if.app-id = 'com.apple.safari'
+run = ['move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'com.google.android.studio'
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.dt.Xcode'
+run = ['move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'com.valvesoftware.steam'
+run = ['move-node-to-workspace 6']
